@@ -41,7 +41,7 @@ Users should be able to:
 
 ### Live site
 
-- [Live Site URL]()
+- [Live Site URL](https://jvmdo.github.io/framework-frontend-practice/bootstrap-w3-newbies-page/)
 
 ## My process
 
