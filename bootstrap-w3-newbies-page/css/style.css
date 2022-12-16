@@ -1,0 +1,191 @@
+/* Reset */
+:root {
+  --body: hsl(210, 8%, 41%);
+  --info: hsl(198, 39%, 62%);
+  --gray-dark: hsl(0, 3%, 35%);
+  --primary: hsl(208, 42%, 49%);
+  --primary-light: hsl(208, 54%, 62%);
+  --danger: hsl(7, 78%, 38%);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* General */
+body {
+  font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
+}
+
+hr {
+  color: var(--primary);
+  background-color: var(--primary);
+  border: none;
+  height: 0.2rem;
+  opacity: 1;
+}
+
+.btn {
+  border-radius: 0;
+  text-transform: uppercase;
+}
+
+.logo {
+  height: 3rem;
+}
+
+::selection {
+  background: var(--primary-light);
+}
+
+/* 
+  Header 
+*/
+.call-bar {
+  background-color: var(--info);
+}
+
+.nav-link {
+  --bs-nav-link-font-size: 1.15rem;
+  --bs-nav-link-font-weight: 600;
+  --bs-nav-link-color: var(--gray-dark);
+  --bs-nav-link-hover-color: var(--primary);
+  letter-spacing: 0.1rem;
+}
+
+/* 
+  Carousel
+*/
+.carousel-item img {
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  max-height: 80vh;
+}
+
+.carousel-item {
+  transition-duration: 0.65s;
+  position: relative;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: unset;
+  left: unset;
+  right: 15%;
+  top: 35%;
+  background-color: hsla(0, 0%, 0%, 0.4);
+  border-radius: 1rem;
+  padding: 1rem;
+  width: max-content;
+}
+
+.carousel-caption :is(h1, h2, p) {
+  text-shadow: 0.1rem 0.1rem hsla(0, 0%, 0%, 0.75);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary-light);
+  --bs-btn-hover-border-color: var(--primary-light);
+}
+
+.btn-danger {
+  --bs-btn-bg: var(--danger);
+  --bs-btn-border-color: var(--danger);
+}
+
+.carousel-item:first-of-type .carousel-caption {
+  right: unset;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-item:first-of-type .btn {
+  height: 2.8rem;
+}
+
+.carousel-item:last-of-type .carousel-caption {
+  right: unset;
+  left: 15%;
+}
+
+/*
+  Testimonials
+*/
+.card {
+  color: var(--body);
+}
+
+/*
+  Matrix 
+*/
+#matrix {
+  height: 70vh;
+  background: url("../images/matrix.jpg") no-repeat center / cover;
+  background-attachment: fixed;
+}
+
+.matrix-top {
+  height: 1rem;
+  background-image: linear-gradient(
+    to bottom,
+    hsl(140, 42%, 30%),
+    hsl(116, 37%, 8%)
+  );
+}
+
+.matrix-bot {
+  height: 3rem;
+  background-image: linear-gradient(
+    to top,
+    hsl(140, 42%, 30%),
+    hsl(116, 37%, 8%)
+  );
+}
+
+:is(.matrix-top, .matrix-bot) {
+  mix-blend-mode: difference;
+  cursor: pointer;
+}
+
+:is(.matrix-top, .matrix-bot):hover {
+  mix-blend-mode: exclusion;
+}
+
+/* 
+  Emoji
+*/
+.emoji img {
+  max-width: 50%;
+}
+
+/*
+  Contact
+*/
+#contact {
+  color: var(--body);
+}
+
+/* 
+  Footer
+*/
+footer {
+  background-color: hsl(0, 0%, 22%);
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+footer hr {
+  height: 0.1rem;
+  margin-bottom: 0;
+}
+
+.socket {
+  background-color: hsl(0, 0%, 13%);
+}
