@@ -19,4 +19,8 @@ You find more of my projects in other repositories of mine, such:
 
 - [My websites clones](https://github.com/jvmdo/clones-frontend-practice)
 
+- [My React Rocketseat's Ignite solutions](https://github.com/jvmdo/rocketseat-ignite)
+
+- [My 30 days of React solutions](https://github.com/jvmdo/30-days-of-react)
+
 - [My solutions for real frontend interviews] (Loading...)
