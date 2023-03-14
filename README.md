@@ -7,11 +7,10 @@ In this repository, you find projects and landing pages I developed using one or
 I am focusing on three main frameworks:
 
 - Bootstrap
-- Tailwind
 - React.js
 - Next.js
 
-## That's all folks... No!
+## That's all folks... No
 
 You find more of my projects in other repositories of mine, such:
 
@@ -22,5 +21,3 @@ You find more of my projects in other repositories of mine, such:
 - [My React Rocketseat's Ignite solutions](https://github.com/jvmdo/rocketseat-ignite)
 
 - [My 30 days of React solutions](https://github.com/jvmdo/30-days-of-react)
-
-- [My solutions for real frontend interviews] (Loading...)
