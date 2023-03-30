@@ -2,8 +2,8 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import { Checkout, checkoutLoader } from './pages/Checkout'
 import { Home } from './pages/Home'
 import { OrderSummary } from './pages/Checkout/OrderSummary'
-import { Payment } from './pages/Checkout/Payment'
-import { Confirmation, confirmationAction } from './pages/Checkout/Confirmation'
+import { Payment, paymentAction } from './pages/Checkout/Payment'
+import { Confirmation } from './pages/Checkout/Confirmation'
 
 export const router = createBrowserRouter([
   {
@@ -23,11 +23,11 @@ export const router = createBrowserRouter([
       {
         path: 'pagamento',
         element: <Payment />,
+        action: paymentAction,
       },
       {
         path: 'confirmacao',
         element: <Confirmation />,
-        action: confirmationAction,
       },
     ],
   },

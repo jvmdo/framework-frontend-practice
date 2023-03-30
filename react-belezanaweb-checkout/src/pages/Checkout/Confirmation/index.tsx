@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
-import { useActionData, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export function Confirmation() {
   const navigate = useNavigate()
-  const data = useActionData()
+  const location = useLocation()
 
-  console.log('Confirmation', data)
+  console.log('HERE')
 
   useEffect(() => {
     window.addEventListener('popstate', () => navigate('/'))
@@ -14,26 +14,9 @@ export function Confirmation() {
   return (
     <>
       <h1>Compra realizada com sucesso!</h1>
+      <p>Nome: {location.state.name}</p>
+      <p>Cartão: {location.state.card}</p>
       <button onClick={() => navigate('/')}>Retornar ao início</button>
     </>
   )
-}
-
-interface ConfirmationActionParams {
-  request: Request
-}
-
-export async function confirmationAction({
-  request,
-}: ConfirmationActionParams) {
-  const data = Object.fromEntries(await request.formData())
-  try {
-    return fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    })
-  } catch {
-    throw new Error('Could not POST data to server. Try again.')
-  }
 }
