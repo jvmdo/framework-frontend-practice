@@ -5,8 +5,6 @@ export function Confirmation() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  console.log('HERE')
-
   useEffect(() => {
     window.addEventListener('popstate', () => navigate('/'))
   }, [navigate])
@@ -14,8 +12,10 @@ export function Confirmation() {
   return (
     <>
       <h1>Compra realizada com sucesso!</h1>
-      <p>Nome: {location.state.name}</p>
       <p>Cartão: {location.state.card}</p>
+      <p>Nome: {location.state.name}</p>
+      <p>Date: {location.state.date}</p>
+      <p>CVV: {location.state.cvv}</p>
       <button onClick={() => navigate('/')}>Retornar ao início</button>
     </>
   )
