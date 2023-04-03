@@ -7,9 +7,30 @@ import {
 } from 'react-router-dom'
 import { InputField } from '../../../components/InputField'
 import { payment, PaymentFormValues } from '../../../services/payment'
+import { z } from 'zod'
+import validator from 'validator'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const FormDataSchema = z.object({
+  name: z.string().regex(/^[a-zA-Z]+(?:['., -][a-zA-Z]+)*$/, {
+    message: 'Insira um nome válido',
+  }),
+  card: z.string().refine((value) => validator.isCreditCard(value), {
+    message: 'Insira um número de cartão válido',
+  }),
+  date: z.string().regex(/^(0[1-9]|1[0-2])\/([0-9]{2})$/, {
+    message: 'Insira uma data válida',
+  }),
+  cvv: z.string().length(3, { message: 'Insira um CVV válido' }),
+})
+
+export type FormDataType = z.infer<typeof FormDataSchema>
 
 export function Payment() {
-  const { handleSubmit, control, reset } = useForm()
+  const { handleSubmit, control, reset } = useForm<FormDataType>({
+    resolver: zodResolver(FormDataSchema),
+    defaultValues: { card: '', name: '', date: '', cvv: '' },
+  })
   const submit = useSubmit()
   const { state } = useNavigation()
   const actionData = useActionData()

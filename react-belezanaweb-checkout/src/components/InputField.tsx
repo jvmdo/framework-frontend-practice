@@ -1,18 +1,14 @@
 import { InputHTMLAttributes } from 'react'
 import Cleave from 'cleave.js/react'
 import { CleaveOptions } from 'cleave.js/options'
-import {
-  Control,
-  Controller,
-  ControllerRenderProps,
-  FieldValues,
-} from 'react-hook-form'
+import { Control, Controller, ControllerRenderProps } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
+import { FormDataType } from '../pages/Checkout/Payment'
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  control: Control<FieldValues, any>
+  control: Control<FormDataType, any>
   label: string
-  name: string
+  name: keyof FormDataType
   options?: CleaveOptions
 }
 
@@ -28,7 +24,7 @@ export function InputField({
     ref,
     value,
     ...field
-  }: ControllerRenderProps<FieldValues, string>) => {
+  }: ControllerRenderProps<FormDataType>) => {
     if (options === undefined) {
       return <input ref={ref} id={name} {...props} {...field} />
     } else {
