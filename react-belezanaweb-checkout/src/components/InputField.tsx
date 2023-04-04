@@ -20,11 +20,7 @@ export function InputField({
   ...props
 }: InputFieldProps) {
   // The easiest way to make Cleave free text is to not use it
-  const whichOne = ({
-    ref,
-    value,
-    ...field
-  }: ControllerRenderProps<FormDataType>) => {
+  const whichOne = ({ ref, ...field }: ControllerRenderProps<FormDataType>) => {
     if (options === undefined) {
       return <input ref={ref} id={name} {...props} {...field} />
     } else {

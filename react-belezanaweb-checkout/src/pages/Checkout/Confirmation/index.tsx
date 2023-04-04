@@ -1,13 +1,16 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export function Confirmation() {
   const navigate = useNavigate()
   const location = useLocation()
 
+  const navigateToRoot = useCallback(() => navigate('/'), [navigate])
+
   useEffect(() => {
-    window.addEventListener('popstate', () => navigate('/'))
-  }, [navigate])
+    window.addEventListener('popstate', navigateToRoot)
+    return () => window.removeEventListener('popstate', navigateToRoot)
+  }, [navigateToRoot])
 
   return (
     <>
@@ -16,7 +19,7 @@ export function Confirmation() {
       <p>Nome: {location.state.name}</p>
       <p>Date: {location.state.date}</p>
       <p>CVV: {location.state.cvv}</p>
-      <button onClick={() => navigate('/')}>Retornar ao início</button>
+      <button onClick={navigateToRoot}>Retornar ao início</button>
     </>
   )
 }

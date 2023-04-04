@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import {
   Navigate,
   useActionData,
@@ -9,9 +9,8 @@ import { InputField } from '../../../components/InputField'
 import { payment, PaymentFormValues } from '../../../services/payment'
 import { z } from 'zod'
 import validator from 'validator'
-import { zodResolver } from '@hookform/resolvers/zod'
 
-const FormDataSchema = z.object({
+export const FormDataSchema = z.object({
   name: z.string().regex(/^[a-zA-Z]+(?:['., -][a-zA-Z]+)*$/, {
     message: 'Insira um nome válido',
   }),
@@ -27,25 +26,22 @@ const FormDataSchema = z.object({
 export type FormDataType = z.infer<typeof FormDataSchema>
 
 export function Payment() {
-  const { handleSubmit, control, reset } = useForm<FormDataType>({
-    resolver: zodResolver(FormDataSchema),
-    defaultValues: { card: '', name: '', date: '', cvv: '' },
-  })
+  const { handleSubmit, control, reset } = useFormContext<FormDataType>()
   const submit = useSubmit()
   const { state } = useNavigation()
   const actionData = useActionData()
 
   function onSuccessSubmit(data: any) {
     submit(data, { method: 'post' })
-    reset()
   }
 
   if (state === 'idle' && actionData) {
+    reset()
     return <Navigate to="/checkout/confirmacao" state={actionData} />
   }
 
   return (
-    <form onSubmit={handleSubmit(onSuccessSubmit)}>
+    <form id="payment" onSubmit={handleSubmit(onSuccessSubmit)}>
       <InputField
         control={control}
         options={{ creditCard: true }}
