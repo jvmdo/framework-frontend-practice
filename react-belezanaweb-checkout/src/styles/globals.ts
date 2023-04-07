@@ -32,6 +32,7 @@ export const GlobalStyles = createGlobalStyle(({ theme }) => ({
   },
 
   button: {
+    background: 'none',
     border: 'none',
     cursor: 'pointer',
     font: 'inherit',
@@ -42,7 +43,7 @@ export const GlobalStyles = createGlobalStyle(({ theme }) => ({
     font: 'inherit',
   },
 
-  list: {
+  ul: {
     listStyleType: 'none',
   },
 

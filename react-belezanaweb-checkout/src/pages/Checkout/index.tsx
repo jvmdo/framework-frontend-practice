@@ -1,6 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form'
 import {
-  NavLink,
   Outlet,
   useLoaderData,
   useMatch,
@@ -9,91 +8,131 @@ import {
 } from 'react-router-dom'
 import { FormDataSchema, FormDataType } from './Payment'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRef } from 'react'
+import {
+  CheckoutLayout,
+  LayoutFooter,
+  PriceSummary,
+  S_NavLink,
+  Stepper,
+} from './styles'
+import { Formatter } from '../../utils/formatter'
+import { ContentContainer } from '../../styles/components/ContentContainer'
+import { useEffect, useRef, useState } from 'react'
 
-export interface CartItem {
-  id: number
-  quantity: number
-  imageUrl: string
-  name: string
-  price: number
+type CheckoutSummary = {
+  itemsQuantity: number
+  subTotal: number
+  shipping: number
+  discount: number
+  total: number
 }
 
-export function useCartItems() {
-  return useOutletContext<CartItem[]>()
+export type CartItem = {
+  id: number
+  name: string
+  imageUrl: string
+  price: number
+  maxPrice: number
+  quantity: number
+}
+
+type LoaderData = {
+  cartItems: CartItem[]
+  checkoutData: CheckoutSummary
+}
+
+type CheckoutContext = {
+  cartItems: CartItem[]
+  btnSpace: HTMLDivElement
+}
+
+export function useCheckoutContext() {
+  return useOutletContext<CheckoutContext>()
 }
 
 export function Checkout() {
-  const cartItems = useLoaderData() as CartItem[]
-  const isConfirmationRoute = useMatch('checkout/confirmacao')
+  const { cartItems, checkoutData } = useLoaderData() as LoaderData
   const formMethods = useForm<FormDataType>({
     resolver: zodResolver(FormDataSchema),
     defaultValues: { card: '', name: '', date: '', cvv: '' },
   })
-
-  const confirmationBtnRef = useRef<HTMLButtonElement>(null)
   const navigate = useNavigate()
-  const isBagRoute = useMatch('checkout/sacola')
+  const isConfirmationRoute = useMatch('checkout/confirmacao')
+  const [didMount, setDidMount] = useState(false)
+  const btnSpaceRef = useRef<HTMLDivElement>(null)
 
   const {
     formState: { isValid },
   } = formMethods
 
+  function handleConfirmationClick() {
+    if (isConfirmationRoute) return
+    if (!isValid) alert('Preencha os dados de pagamento corretamente.')
+    navigate('./pagamento')
+  }
+
+  useEffect(() => {
+    setDidMount(true)
+  }, [])
+
   return (
-    <>
-      <h1>Checkout Steps</h1>
-      <nav>
-        <ul>
-          <li>
-            <NavLink
-              to="./sacola"
-              style={({ isActive }) => ({
-                color: isActive ? 'rebeccapurple' : '',
-              })}
-            >
-              Sacola
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="./pagamento"
-              style={({ isActive }) => ({
-                color: isActive ? 'rebeccapurple' : '',
-              })}
-            >
-              Pagamento
-            </NavLink>
-          </li>
-          <li>
-            <button
-              ref={confirmationBtnRef}
-              form="payment"
-              type="submit"
-              onClick={() => {
-                if (!isBagRoute || !isValid) {
-                  console.count('Not yet!')
-                  return
-                }
-                navigate('./pagamento')
-                confirmationBtnRef.current?.click()
-              }}
-              style={{
-                color: isConfirmationRoute
-                  ? 'rebeccapurple'
-                  : isValid
-                  ? '#646cff'
-                  : '#2f2f2f',
-              }}
-            >
-              Confirmação
-            </button>
-          </li>
-        </ul>
-      </nav>
-      <FormProvider {...formMethods}>
-        <Outlet context={cartItems} />
-      </FormProvider>
-    </>
+    <CheckoutLayout>
+      <header>
+        <nav>
+          <Stepper>
+            <li>
+              <S_NavLink to="./sacola">Sacola</S_NavLink>
+            </li>
+            <li>
+              <S_NavLink to="./pagamento">Pagamento</S_NavLink>
+            </li>
+            <li>
+              <S_NavLink
+                as="button"
+                type="submit"
+                form="payment"
+                onClick={handleConfirmationClick}
+                className={isConfirmationRoute ? 'active' : ''}
+              >
+                Confirmação
+              </S_NavLink>
+            </li>
+          </Stepper>
+        </nav>
+      </header>
+
+      <main>
+        <FormProvider {...formMethods}>
+          {didMount && (
+            <Outlet context={{ cartItems, btnSpace: btnSpaceRef.current }} />
+          )}
+        </FormProvider>
+      </main>
+
+      <LayoutFooter>
+        <ContentContainer>
+          <PriceSummary>
+            <li>
+              <span>Produtos: ({checkoutData.itemsQuantity} itens)</span>
+              <span>{Formatter.currency(checkoutData.subTotal)}</span>
+            </li>
+            <li>
+              <span>Frete:</span>
+              <span>{Formatter.currency(checkoutData.shipping)}</span>
+            </li>
+            <li>
+              <span className="discount">Desconto:</span>
+              <span>{Formatter.currency(checkoutData.discount)}</span>
+            </li>
+            <li>
+              <span>Subtotal:</span>
+              <span>{Formatter.currency(checkoutData.total)}</span>
+            </li>
+          </PriceSummary>
+          <div ref={btnSpaceRef} style={{ display: 'grid' }}></div>
+        </ContentContainer>
+      </LayoutFooter>
+    </CheckoutLayout>
   )
 }
 
@@ -103,14 +142,25 @@ export async function checkoutLoader() {
       'https://run.mocky.io/v3/d6e9a93f-9741-4494-b81e-637a8e9b8ddd',
     )
     const data = await response.json()
+
     const cartItems: CartItem[] = data.items.map((item: any) => ({
       id: item.product.sku,
-      quantity: item.quantity,
-      imageUrl: item.product.imageObjects[0].small,
       name: item.product.name,
-      price: item.product.priceSpecification.maxPrice,
+      imageUrl: item.product.imageObjects[0].small,
+      price: item.product.priceSpecification.price,
+      maxPrice: item.product.priceSpecification.maxPrice,
+      quantity: item.quantity,
     }))
-    return cartItems
+
+    const checkoutData: CheckoutSummary = {
+      itemsQuantity: cartItems.reduce((acc, { quantity }) => acc + quantity, 0),
+      subTotal: data.subTotal,
+      shipping: data.shippingTotal,
+      discount: data.discount,
+      total: data.total,
+    }
+
+    return { cartItems, checkoutData }
   } catch {
     throw new Error('Failed to fetch data')
   }

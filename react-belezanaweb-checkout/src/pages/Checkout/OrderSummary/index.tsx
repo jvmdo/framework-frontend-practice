@@ -1,15 +1,17 @@
-import { Link } from 'react-router-dom'
-import { useCartItems } from '..'
+import { createPortal } from 'react-dom'
+import { useCheckoutContext } from '..'
+import { BrandButton } from '../../../components/BrandButton'
+import { ContentContainer } from '../../../styles/components/ContentContainer'
 
 export function OrderSummary() {
-  const cartItems = useCartItems()
+  const { cartItems, btnSpace } = useCheckoutContext()
 
   if (cartItems.length === 0) {
     return <h1>Cart Summary Page</h1>
   }
 
   return (
-    <main>
+    <ContentContainer>
       <section>
         <ul>
           {cartItems.map((item) => {
@@ -23,7 +25,10 @@ export function OrderSummary() {
           })}
         </ul>
       </section>
-      <Link to="../pagamento">Ir para pagamento</Link>
-    </main>
+      {createPortal(
+        <BrandButton to="../pagamento">Seguir para o pagamento</BrandButton>,
+        btnSpace,
+      )}
+    </ContentContainer>
   )
 }

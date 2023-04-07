@@ -1,4 +1,12 @@
 export const defaultTheme = {
+  breakpoints: {
+    xxs: '20em',
+    xs: '23.4375em',
+    sm: '36em',
+    md: '48em',
+    lg: '62em',
+  },
+
   colors: {
     black: '#000000',
     white: '#ffffff',
@@ -11,14 +19,12 @@ export const defaultTheme = {
 
     primary: '#9222DC',
     error: '#DE1616',
-
-    shadow: '0px 2px 4px 0px #0000001A',
   },
 
   font: {
     family: {
       primary: 'Arial, sans-serif',
-      secondary: 'Helvetica Neue, serif',
+      secondary: '"Helvetica Neue", Roboto, serif',
     },
 
     height: {
@@ -47,11 +53,7 @@ export const defaultTheme = {
     },
   },
 
-  breakpoints: {
-    xxs: '20em',
-    xs: '23.4375em',
-    sm: '36em',
-    md: '48em',
-    lg: '62em',
+  shadows: {
+    primary: '0px 2px 4px 0px #0000001A',
   },
 } as const
