@@ -15,12 +15,12 @@ export const CheckoutLayout = styled.div({
 
 export const S_NavLink = styled(NavLink)(({ theme }) => ({
   color: theme.colors.step,
-  lineHeight: theme.font.height.tall,
+  lineHeight: theme.font.lineHeight.stepper,
   fontSize: theme.font.size.sm,
 
   display: 'inline-block',
   position: 'relative',
-  padding: '0.625rem 0.75rem',
+  padding: '0.5rem 0.75rem',
 
   '&.active': {
     color: theme.colors.black,
@@ -63,6 +63,7 @@ export const PriceSummary = styled.ul(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     fontSize: theme.font.size.sm,
+    lineHeight: theme.font.lineHeight.amount,
   },
 
   '& .discount + span': {
@@ -75,7 +76,13 @@ export const PriceSummary = styled.ul(({ theme }) => ({
     fontFamily: theme.font.family.secondary,
     fontSize: theme.font.size.base,
     fontWeight: theme.font.weight.bold,
+    lineHeight: theme.font.lineHeight.total,
   },
+}))
+
+export const ButtonSpace = styled.div(({ theme }) => ({
+  display: 'grid',
+  lineHeight: theme.font.lineHeight.button,
 }))
 
 export const LayoutFooter = styled.footer(({ theme }) => ({

@@ -24,7 +24,7 @@ export const ContentContainer = styled.div(
       border-radius: ${theme.radii.r}px;
       font-size: ${theme.font.size.xs};
       margin: 0.375rem;
-      padding: 1.5rem 0.675rem 2.5rem;
+      padding: 1.5rem 0.6rem 2.5rem;
     }
   `,
 )

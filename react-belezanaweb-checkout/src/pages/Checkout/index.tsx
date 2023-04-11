@@ -9,6 +9,7 @@ import {
 import { FormDataSchema, FormDataType } from './Payment'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
+  ButtonSpace,
   CheckoutLayout,
   LayoutFooter,
   PriceSummary,
@@ -129,8 +130,7 @@ export function Checkout() {
               <span>{Formatter.currency(checkoutData.total)}</span>
             </li>
           </PriceSummary>
-          {/* TODO: own component with styles */}
-          <div ref={btnSpaceRef} style={{ display: 'grid' }}></div>
+          <ButtonSpace ref={btnSpaceRef}></ButtonSpace>
         </ContentContainer>
       </LayoutFooter>
     </CheckoutLayout>

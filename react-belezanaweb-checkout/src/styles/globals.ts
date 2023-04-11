@@ -19,7 +19,7 @@ export const GlobalStyles = createGlobalStyle(({ theme }) => ({
   body: {
     color: theme.colors.black,
     fontWeight: theme.font.weight.regular,
-    lineHeight: theme.font.height.body,
+    lineHeight: theme.font.lineHeight.itemName,
     letterSpacing: theme.font.spacing.regular,
     minHeight: '100dvh',
     minWidth: '20rem',

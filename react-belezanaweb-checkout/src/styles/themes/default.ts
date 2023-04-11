@@ -27,10 +27,15 @@ export const defaultTheme = {
       secondary: '"Helvetica Neue", Roboto, serif',
     },
 
-    height: {
-      body: 1.15,
-      heading: 1.7,
-      tall: 1.25,
+    lineHeight: {
+      stepper: 1.714, // 24 / 14
+      itemName: 1.333, // 16 / 12
+      amount: 1.143, // 16 / 14
+      total: 1,
+      button: 0.888, // 16 / 18
+      heading: 1.2, // 24 / 20
+      heading2: 1.273, // 28 / 22
+      card: 1.25, // 20 / 16
     },
 
     size: {

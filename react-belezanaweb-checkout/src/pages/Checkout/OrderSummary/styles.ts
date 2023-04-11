@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { ContentContainer } from '../../../styles/components/ContentContainer'
 
-export const S_OrderSummary = styled.section(({ theme }) => ({
+export const S_OrderSummary = styled.section({
   display: 'grid',
 
   [`${ContentContainer}`]: {
@@ -10,7 +10,7 @@ export const S_OrderSummary = styled.section(({ theme }) => ({
       gap: '2.5rem',
     },
   },
-}))
+})
 
 export const S_OrderItem = styled.li(({ theme }) => ({
   '& s': {
@@ -26,10 +26,11 @@ export const S_OrderItem = styled.li(({ theme }) => ({
     flexDirection: 'column',
     alignItems: 'flex-end',
     gap: '0.25rem',
+    lineHeight: theme.font.lineHeight.amount,
   },
 
   '& .img-box': {
-    minWidth: '4rem',
+    minWidth: '3.75rem',
   },
 
   display: 'flex',
