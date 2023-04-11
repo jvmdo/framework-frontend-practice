@@ -129,6 +129,7 @@ export function Checkout() {
               <span>{Formatter.currency(checkoutData.total)}</span>
             </li>
           </PriceSummary>
+          {/* TODO: own component with styles */}
           <div ref={btnSpaceRef} style={{ display: 'grid' }}></div>
         </ContentContainer>
       </LayoutFooter>

@@ -28,10 +28,9 @@ export const defaultTheme = {
     },
 
     height: {
-      body: 1,
-      medium: 1.25,
-      tall: 1.5,
-      taller: 1.75,
+      body: 1.15,
+      heading: 1.7,
+      tall: 1.25,
     },
 
     size: {
@@ -51,6 +50,10 @@ export const defaultTheme = {
       regular: 400,
       bold: 700,
     },
+  },
+
+  radii: {
+    r: 4,
   },
 
   shadows: {

@@ -2,33 +2,36 @@ import { createPortal } from 'react-dom'
 import { useCheckoutContext } from '..'
 import { BrandButton } from '../../../components/BrandButton'
 import { ContentContainer } from '../../../styles/components/ContentContainer'
+import { S_OrderItem, S_OrderSummary } from './styles'
+import { Formatter } from '../../../utils/formatter'
 
 export function OrderSummary() {
   const { cartItems, btnSpace } = useCheckoutContext()
 
-  if (cartItems.length === 0) {
-    return <h1>Cart Summary Page</h1>
-  }
-
   return (
-    <ContentContainer>
-      <section>
+    <S_OrderSummary>
+      <ContentContainer>
         <ul>
-          {cartItems.map((item) => {
+          {cartItems.map(({ id, imageUrl, name, price, maxPrice }) => {
             return (
-              <li key={item.id}>
-                <img src={item.imageUrl} alt="" />
-                <p>{item.name}</p>
-                <strong>R$ {item.price}</strong>
-              </li>
+              <S_OrderItem key={id}>
+                <div className="img-box">
+                  <img src={imageUrl} alt={name} />
+                </div>
+                <p>{name}</p>
+                <div className="prices">
+                  {maxPrice !== price && <s>{Formatter.currency(maxPrice)}</s>}
+                  <strong>{Formatter.currency(price)}</strong>
+                </div>
+              </S_OrderItem>
             )
           })}
         </ul>
-      </section>
-      {createPortal(
-        <BrandButton to="../pagamento">Seguir para o pagamento</BrandButton>,
-        btnSpace,
-      )}
-    </ContentContainer>
+        {createPortal(
+          <BrandButton to="../pagamento">Seguir para o pagamento</BrandButton>,
+          btnSpace,
+        )}
+      </ContentContainer>
+    </S_OrderSummary>
   )
 }

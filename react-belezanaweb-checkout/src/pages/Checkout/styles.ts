@@ -7,6 +7,10 @@ export const CheckoutLayout = styled.div({
   gridAutoRows: 'auto 1fr auto',
   gap: '1.5rem',
   minHeight: '100dvh',
+
+  '& > main': {
+    display: 'grid',
+  },
 })
 
 export const S_NavLink = styled(NavLink)(({ theme }) => ({

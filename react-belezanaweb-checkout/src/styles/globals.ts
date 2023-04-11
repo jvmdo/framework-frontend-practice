@@ -13,12 +13,12 @@ export const GlobalStyles = createGlobalStyle(({ theme }) => ({
     colorScheme: 'light dark',
     fontFamily: theme.font.family.primary,
     fontSynthesis: 'none',
-    fontWeight: theme.font.weight.regular,
     textRendering: 'optimizeLegibility',
   },
 
   body: {
     color: theme.colors.black,
+    fontWeight: theme.font.weight.regular,
     lineHeight: theme.font.height.body,
     letterSpacing: theme.font.spacing.regular,
     minHeight: '100dvh',
