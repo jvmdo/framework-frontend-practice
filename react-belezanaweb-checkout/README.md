@@ -25,6 +25,31 @@ Elo: 6363 1811 1111 1110
 
 3. @types/ for Cleave and validator
 
+4. Pass ref to Cleave so it works altogether with Controller
+
+5. Portals!
+
+6. I just can't make input's :invalid works. I had to added .invalid class when there is an error in the field.
+
+  I tried: setError, shouldUseNativeValidation, ConstraintValidation API (it worked but react-hook-form has no idea of it). Also tried to select the input that is followed by .error-message using :has().
+
+  ```tsx
+  function onFailSubmit(errors: FieldErrors<FormDataType>) {
+    console.log(errors)
+    // ? Why is setError not firing :invalid 😡
+    // ? Why is [shouldUseNativeValidation] crashing the app
+    Object.entries(errors)
+      .map(([name, error]) => ({
+        name: name as keyof FormDataType,
+        type: error?.type as string,
+        message: error?.message,
+      }))
+      .forEach(({ name, type, message }) => {
+        setError(name, { type, message })
+      })
+  }
+  ```
+
 # Shit
 
 1. <https://github.com/remix-run/react-router/discussions/9792>

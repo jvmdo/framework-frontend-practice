@@ -9,6 +9,11 @@ import { InputField } from '../../../components/InputField'
 import { payment, PaymentFormValues } from '../../../services/payment'
 import { z } from 'zod'
 import validator from 'validator'
+import { ContentContainer } from '../../../styles/components/ContentContainer'
+import { S_Payment } from './styles'
+import { createPortal } from 'react-dom'
+import { useCheckoutContext } from '..'
+import { BrandButton } from '../../../components/BrandButton'
 
 export const FormDataSchema = z.object({
   name: z.string().regex(/^[a-zA-Z]+(?:['., -][a-zA-Z]+)*$/, {
@@ -30,50 +35,69 @@ export function Payment() {
   const submit = useSubmit()
   const { state } = useNavigation()
   const actionData = useActionData()
+  const { btnSpace } = useCheckoutContext()
 
-  function onSuccessSubmit(data: any) {
+  function onSuccessSubmit(data: FormDataType) {
+    console.log(data)
     submit(data, { method: 'post' })
   }
 
   if (state === 'idle' && actionData) {
+    // resetting here in rasing a warning
+    // Cannot update a component (`Controller`) while rendering a different component (`Payment`)
     reset()
     return <Navigate to="/checkout/confirmacao" state={actionData} />
   }
 
   return (
-    <form id="payment" onSubmit={handleSubmit(onSuccessSubmit)}>
-      <InputField
-        control={control}
-        options={{ creditCard: true }}
-        name="card"
-        placeholder="0000 0000 0000 0000"
-        label="Número"
-      />
-      <InputField
-        control={control}
-        options={{ delimiter: '' }}
-        name="name"
-        placeholder="Nome impresso no cartão"
-        label="Nome do titular do cartão"
-      />
-      <InputField
-        control={control}
-        options={{ date: true, datePattern: ['m', 'y'] }}
-        name="date"
-        placeholder="MM/AA"
-        label="Data de validade"
-      />
-      <InputField
-        control={control}
-        options={{ blocks: [3], numericOnly: true }}
-        name="cvv"
-        placeholder="000"
-        label="Código CVV"
-      />
-      <button disabled={state === 'submitting' || state === 'loading'}>
-        Enviar
-      </button>
-    </form>
+    <S_Payment>
+      <ContentContainer>
+        <h1>Cartão de crédito</h1>
+        <form id="payment" onSubmit={handleSubmit(onSuccessSubmit)}>
+          <InputField
+            control={control}
+            options={{ creditCard: true }}
+            name="card"
+            placeholder="0000 0000 0000 0000"
+            label="Número"
+          />
+          <InputField
+            control={control}
+            options={{ delimiter: '' }}
+            name="name"
+            placeholder="Nome impresso no cartão"
+            label="Nome do titular do cartão"
+          />
+          <div className="input-col">
+            <InputField
+              control={control}
+              options={{ date: true, datePattern: ['m', 'y'] }}
+              name="date"
+              placeholder="MM/AA"
+              label="Data de validade"
+            />
+            <InputField
+              control={control}
+              options={{ blocks: [3], numericOnly: true }}
+              name="cvv"
+              placeholder="000"
+              label="Código CVV"
+            />
+          </div>
+          {createPortal(
+            <BrandButton
+              as="button"
+              type="submit"
+              form="payment"
+              disabled={state === 'submitting' || state === 'loading'}
+            >
+              Finalizar pedido
+            </BrandButton>,
+            btnSpace,
+          )}
+        </form>
+      </ContentContainer>
+    </S_Payment>
   )
 }
 
