@@ -6,7 +6,7 @@ import {
   useSubmit,
 } from 'react-router-dom'
 import { InputField } from '../../../components/InputField'
-import { payment, PaymentFormValues } from '../../../services/payment'
+import { payment } from '../../../services/payment'
 import { z } from 'zod'
 import validator from 'validator'
 import { ContentContainer } from '../../../styles/components/ContentContainer'
@@ -22,30 +22,35 @@ export const FormDataSchema = z.object({
   card: z.string().refine((value) => validator.isCreditCard(value), {
     message: 'Insira um número de cartão válido',
   }),
-  date: z.string().regex(/^(0[1-9]|1[0-2])\/([0-9]{2})$/, {
-    message: 'Insira uma data válida',
-  }),
+  date: z.string().refine(
+    (value) => {
+      const lastYear = new Date().getFullYear() - 1
+      return validator.isAfter(`01/${value}`, `12/31/${lastYear}`)
+    },
+    {
+      message: 'Insira uma data válida',
+    },
+  ),
   cvv: z.string().length(3, { message: 'Insira um CVV válido' }),
 })
 
 export type FormDataType = z.infer<typeof FormDataSchema>
 
 export function Payment() {
-  const { handleSubmit, control, reset } = useFormContext<FormDataType>()
+  const { handleSubmit, control } = useFormContext<FormDataType>()
   const submit = useSubmit()
   const { state } = useNavigation()
   const actionData = useActionData()
   const { btnSpace } = useCheckoutContext()
 
   function onSuccessSubmit(data: FormDataType) {
-    console.log(data)
     submit(data, { method: 'post' })
   }
 
   if (state === 'idle' && actionData) {
     // resetting here in rasing a warning
     // Cannot update a component (`Controller`) while rendering a different component (`Payment`)
-    reset()
+    // reset()
     return <Navigate to="/checkout/confirmacao" state={actionData} />
   }
 
@@ -71,9 +76,9 @@ export function Payment() {
           <div className="input-col">
             <InputField
               control={control}
-              options={{ date: true, datePattern: ['m', 'y'] }}
+              options={{ date: true, datePattern: ['m', 'Y'] }}
               name="date"
-              placeholder="MM/AA"
+              placeholder="MM/AAAA"
               label="Data de validade"
             />
             <InputField
@@ -102,9 +107,9 @@ export function Payment() {
 }
 
 export async function paymentAction({ request }: { request: Request }) {
-  const data = Object.fromEntries(await request.formData()) as PaymentFormValues
+  const data = Object.fromEntries(await request.formData()) as FormDataType
   try {
-    // Simulate post to the payment service backend
+    // Simulate POST to the payment service API
     return payment(data)
   } catch {
     throw new Error('Could not POST data to server. Try again.')

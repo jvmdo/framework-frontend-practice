@@ -4,9 +4,16 @@ import { BrandButton } from '../../../components/BrandButton'
 import { ContentContainer } from '../../../styles/components/ContentContainer'
 import { S_OrderItem, S_OrderSummary } from './styles'
 import { Formatter } from '../../../utils/formatter'
+import { useFormContext } from 'react-hook-form'
+import { useEffect } from 'react'
 
 export function OrderSummary() {
   const { cartItems, btnSpace } = useCheckoutContext()
+  const { reset } = useFormContext()
+
+  useEffect(() => {
+    reset()
+  }, [reset])
 
   return (
     <S_OrderSummary>
@@ -15,9 +22,7 @@ export function OrderSummary() {
           {cartItems.map(({ id, imageUrl, name, price, maxPrice }) => {
             return (
               <S_OrderItem key={id}>
-                <div className="img-box">
-                  <img src={imageUrl} alt={name} />
-                </div>
+                <img src={imageUrl} alt={name} />
                 <p>{name}</p>
                 <div className="prices">
                   {maxPrice !== price && <s>{Formatter.currency(maxPrice)}</s>}

@@ -8,6 +8,7 @@ export const S_Payment = styled.section(({ theme }) => ({
     display: 'grid',
     gridAutoRows: 'auto 1fr',
     gap: '1rem',
+    padding: '1rem 0.75rem 1.25rem',
 
     '& > h1': {
       fontSize: theme.font.size.lg,

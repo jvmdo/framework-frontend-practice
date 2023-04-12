@@ -23,8 +23,8 @@ export const ContentContainer = styled.div(
       border: 1px solid ${theme.colors.border};
       border-radius: ${theme.radii.r}px;
       font-size: ${theme.font.size.xs};
-      margin: 0.375rem;
-      padding: 1.5rem 0.6rem 2.5rem;
+      margin-inline: 0.375rem;
+      padding: unset;
     }
   `,
 )
