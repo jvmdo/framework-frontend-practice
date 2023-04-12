@@ -20,7 +20,8 @@ export const S_NavLink = styled(NavLink)(({ theme }) => ({
 
   display: 'inline-block',
   position: 'relative',
-  padding: '0.5rem 0.75rem',
+  paddingBlock: 'clamp(0.5rem, 0.196rem + 1.3vmin, 1rem)',
+  paddingInline: 'clamp(0.75rem, -1.073rem + 7.78vmin, 3.75rem)',
 
   '&.active': {
     color: theme.colors.black,

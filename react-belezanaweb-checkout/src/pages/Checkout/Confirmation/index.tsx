@@ -6,12 +6,14 @@ import { useCheckoutContext } from '..'
 import { createPortal } from 'react-dom'
 import { BrandButton } from '../../../components/BrandButton'
 import { useTheme } from 'styled-components'
+import { useFormContext } from 'react-hook-form'
 
 export function Confirmation() {
   const navigate = useNavigate()
   const location = useLocation()
   const { cartItems, btnSpace } = useCheckoutContext()
   const theme = useTheme()
+  const { reset } = useFormContext()
 
   const navigateToRoot = useCallback(() => navigate('/'), [navigate])
 
@@ -19,6 +21,10 @@ export function Confirmation() {
     window.addEventListener('popstate', navigateToRoot)
     return () => window.removeEventListener('popstate', navigateToRoot)
   }, [navigateToRoot])
+
+  useEffect(() => {
+    reset()
+  }, [reset])
 
   return (
     <S_Confirmation>

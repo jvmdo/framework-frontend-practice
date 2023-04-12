@@ -39,12 +39,12 @@ export const defaultTheme = {
     },
 
     size: {
-      xs: '0.75rem',
-      sm: '0.875rem',
-      base: '1rem',
-      md: '1.125rem',
-      lg: '1.25rem',
-      xlg: '1.375rem',
+      xs: 'clamp(0.75rem, 0.598rem + 0.65vmin, 1rem)',
+      sm: 'clamp(0.875rem, 0.723rem + 0.65vmin, 1.125rem)',
+      base: 'clamp(1rem, 0.848rem + 0.65vmin, 1.25rem)',
+      md: 'clamp(1.125rem, 0.973rem + 0.65vmin, 1.375rem)',
+      lg: 'clamp(1.25rem, 1.098rem + 0.65vmin, 1.5rem)',
+      xlg: 'clamp(1.375rem, 1.223rem + 0.65vmin, 1.625rem)',
     },
 
     spacing: {

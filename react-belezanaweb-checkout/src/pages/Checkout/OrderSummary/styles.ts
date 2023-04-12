@@ -23,6 +23,10 @@ export const S_OrderItem = styled.li(({ theme }) => ({
     fontSize: theme.font.size.sm,
   },
 
+  '& p': {
+    fontSize: theme.font.size.xs,
+  },
+
   '& .prices': {
     display: 'flex',
     flexDirection: 'column',

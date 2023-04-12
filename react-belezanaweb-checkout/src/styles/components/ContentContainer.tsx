@@ -23,8 +23,14 @@ export const ContentContainer = styled.div(
       border: 1px solid ${theme.colors.border};
       border-radius: ${theme.radii.r}px;
       font-size: ${theme.font.size.xs};
-      margin-inline: 0.375rem;
+      margin-inline: clamp(0.375rem, -0.005rem + 1.62vw, 1rem);
       padding: unset;
+
+      @media (min-width: ${breakpoints.lg}) {
+        margin-inline: auto;
+        padding-inline: var(--fluid-padding) !important;
+        width: calc(var(--base-width) + 2 * var(--fluid-padding));
+      }
     }
   `,
 )
