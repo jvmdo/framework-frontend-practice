@@ -1,21 +1,21 @@
 import { useNavigation } from 'react-router-dom'
 import { Raffle } from '../../constants/raffles'
-import { RaffleSelector } from '../RaffleSelector'
+import { RaffleSelector } from '../../components/RaffleSelector'
 import { Ball, Footer, Header, Main, PageTemplateContainer } from './styles'
 
-export interface PageTemplateProps {
+export interface RafflePageProps {
   raffle: Raffle
   winningNumbers: number[]
   raffleNumber: number
   date: string
 }
 
-export function PageTemplate({
+export function RafflePage({
   raffle,
   winningNumbers,
   raffleNumber,
   date,
-}: PageTemplateProps) {
+}: RafflePageProps) {
   const navigation = useNavigation()
 
   const isLoading = navigation.state !== 'idle'

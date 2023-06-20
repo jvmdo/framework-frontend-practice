@@ -2,7 +2,7 @@ import { styled } from '../../styles/stitches.config'
 import BackgroundMobile from '../../assets/mobile-background.svg'
 import BackgroundDesktop from '../../assets/desktop-background.svg'
 import { Raffle } from '../../constants/raffles'
-import { spinnerStyles } from '../Spinner'
+import { spinnerStyles } from '../../components/Spinner'
 
 export const PageTemplateContainer = styled('div', {
   minHeight: '100dvh',
