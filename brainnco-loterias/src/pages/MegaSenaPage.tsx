@@ -1,5 +1,8 @@
-import { PageTemplate } from '../components/PageTemplate'
+import { useLoaderData } from 'react-router-dom'
+import { PageTemplate, PageTemplateProps } from '../components/PageTemplate'
 
 export default function MegaSenaPage() {
-  return <PageTemplate />
+  const data = useLoaderData() as PageTemplateProps
+
+  return <PageTemplate {...data} />
 }

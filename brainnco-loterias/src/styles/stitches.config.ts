@@ -1,6 +1,6 @@
 import { createStitches } from '@stitches/react'
 
-export const { styled, globalCss, config } = createStitches({
+export const { styled, globalCss, keyframes, config } = createStitches({
   theme: {
     fonts: {
       default: 'Montserrat, system-ui, Helvetica',
@@ -51,5 +51,8 @@ export const { styled, globalCss, config } = createStitches({
     sm: '(min-width: 36em)',
     md: '(min-width: 48em)',
     lg: '(min-width: 62em)',
+
+    p: '(orientation: portrait)',
+    l: '(orientation: landscape)',
   },
 })
