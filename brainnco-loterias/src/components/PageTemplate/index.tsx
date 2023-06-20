@@ -23,9 +23,9 @@ export function PageTemplate({
           <h1>{raffle}</h1>
         </div>
         <div className="fgroup">
-          <p>Concurso nº</p>
+          <p>Concurso</p>
           <strong>
-            {raffleNumber} - {new Date(date).getDate()}
+            {raffleNumber} - {new Date(date).toLocaleDateString('pt-BR')}
           </strong>
         </div>
       </Header>
