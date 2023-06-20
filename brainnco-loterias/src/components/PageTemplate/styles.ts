@@ -1,6 +1,8 @@
 import { styled } from '../../styles/stitches.config'
 import BackgroundMobile from '../../assets/mobile-background.svg'
 import BackgroundDesktop from '../../assets/desktop-background.svg'
+import { Raffle } from '../../constants/raffles'
+import { spinnerStyles } from '../Spinner'
 
 export const PageTemplateContainer = styled('div', {
   minHeight: '100dvh',
@@ -27,6 +29,23 @@ export const PageTemplateContainer = styled('div', {
     $$paddingBlock: '5.75rem',
     $$paddingInline: '6rem',
   },
+
+  variants: {
+    withSpinner: {
+      true: {
+        ...spinnerStyles,
+
+        '&::after': {
+          content: '',
+          backgroundColor: 'color-mix(in srgb, $gray100, transparent 50%)',
+
+          position: 'absolute',
+          inset: 0,
+          zIndex: 91,
+        },
+      },
+    },
+  },
 })
 
 export const Header = styled('header', {
@@ -35,7 +54,6 @@ export const Header = styled('header', {
   alignItems: 'center',
   gap: '5rem',
 
-  backgroundColor: '$khaki',
   WebkitMaskImage: `url(${BackgroundMobile})`,
   maskImage: `url(${BackgroundMobile})`,
   WebkitMaskPosition: 'top center',
@@ -91,6 +109,21 @@ export const Header = styled('header', {
     height: '100dvh',
     paddingBlock: '$$paddingBlock',
     width: '38.3125rem',
+  },
+
+  variants: {
+    raffle: {
+      [Raffle.MegaSena]: { backgroundColor: '$aquamarine' },
+      [Raffle.Quina]: { backgroundColor: '$purple' },
+      [Raffle.Lotofacil]: { backgroundColor: '$pink' },
+      [Raffle.Lotomania]: { backgroundColor: '$orange' },
+      [Raffle.Timemania]: { backgroundColor: '$green' },
+      [Raffle.DiaDeSorte]: { backgroundColor: '$khaki' },
+    },
+  },
+
+  defaultVariants: {
+    raffle: Raffle.MegaSena,
   },
 })
 

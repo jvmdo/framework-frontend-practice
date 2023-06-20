@@ -9,23 +9,25 @@ import {
   SelectItemIndicator,
 } from './styles'
 import { CaretDown, CaretLeft } from '@phosphor-icons/react'
-
-const raffles = [
-  'mega-sena',
-  'quina',
-  'lotofacil',
-  'lotomania',
-  'timemania',
-  'dia de sorte',
-]
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Raffle } from '../../constants/raffles'
 
 export function RaffleSelector() {
-  const [value, setValue] = useState<string>(raffles[0])
+  const location = useLocation()
+  const currentRaffle = location.pathname.replace('/', '')
+
+  const [raffle, setRaffle] = useState(currentRaffle)
+  const navigate = useNavigate()
+
+  function handleSelectNavigation(raffle: string) {
+    navigate(`/${raffle}`)
+    setRaffle(raffle)
+  }
 
   return (
-    <Select.Root value={value} onValueChange={setValue}>
+    <Select.Root value={raffle} onValueChange={handleSelectNavigation}>
       <SelectTrigger>
-        <Select.Value aria-label={value}>{value}</Select.Value>
+        <Select.Value aria-label={raffle}>{raffle}</Select.Value>
         <SelectIcon>
           <CaretDown size={16} weight="fill" />
         </SelectIcon>
@@ -33,7 +35,7 @@ export function RaffleSelector() {
       <Select.Portal>
         <SelectContent position="popper" sideOffset={2} align="center">
           <SelectViewport>
-            {raffles.map((raffle) => (
+            {Object.values(Raffle).map((raffle) => (
               <SelectItem key={raffle} value={raffle}>
                 <Select.ItemText>{raffle}</Select.ItemText>
                 <SelectItemIndicator>

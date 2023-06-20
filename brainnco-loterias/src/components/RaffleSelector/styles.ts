@@ -13,6 +13,7 @@ export const SelectTrigger = styled(Select.SelectTrigger, {
   borderRadius: '1rem',
   boxShadow: `$select`,
 
+  color: '$gray500',
   fontSize: '$sm',
   fontWeight: '$medium',
   textTransform: 'uppercase',

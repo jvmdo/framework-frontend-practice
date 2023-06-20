@@ -1,8 +1,10 @@
+import { useNavigation } from 'react-router-dom'
+import { Raffle } from '../../constants/raffles'
 import { RaffleSelector } from '../RaffleSelector'
 import { Ball, Footer, Header, Main, PageTemplateContainer } from './styles'
 
 export interface PageTemplateProps {
-  raffle: string
+  raffle: Raffle
   winningNumbers: number[]
   raffleNumber: number
   date: string
@@ -14,9 +16,13 @@ export function PageTemplate({
   raffleNumber,
   date,
 }: PageTemplateProps) {
+  const navigation = useNavigation()
+
+  const isLoading = navigation.state !== 'idle'
+
   return (
-    <PageTemplateContainer>
-      <Header>
+    <PageTemplateContainer withSpinner={isLoading}>
+      <Header raffle={raffle}>
         <RaffleSelector />
         <div className="lgroup">
           <img src="/logo.svg" alt="" />
