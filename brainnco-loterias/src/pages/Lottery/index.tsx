@@ -1,6 +1,6 @@
 import { useLoaderData, useNavigation } from 'react-router-dom'
 import { RaffleSelector } from '../../components/RaffleSelector'
-import { Ball, Footer, Header, Main, PageTemplateContainer } from './styles'
+import { Ball, Footer, Header, Main, LotteryContainer } from './styles'
 import { LotteryData } from '../../types'
 
 export function Lottery() {
@@ -11,14 +11,14 @@ export function Lottery() {
   const { lottery, draw, date, numbers } = data
 
   return (
-    <PageTemplateContainer withSpinner={isLoading}>
-      <Header raffle={lottery}>
+    <LotteryContainer withSpinner={isLoading}>
+      <Header color={lottery}>
         <RaffleSelector />
-        <div className="lgroup">
+        <div className="lottery--name">
           <img src="/logo.svg" alt="" />
           <h1>{lottery}</h1>
         </div>
-        <div className="fgroup">
+        <div className="lottery--info">
           <p>Concurso</p>
           <strong>
             {draw} - {date}
@@ -40,6 +40,6 @@ export function Lottery() {
           a CAIXA.
         </p>
       </Footer>
-    </PageTemplateContainer>
+    </LotteryContainer>
   )
 }

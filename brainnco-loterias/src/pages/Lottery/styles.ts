@@ -1,33 +1,30 @@
 import { styled } from '../../styles/stitches.config'
-import BackgroundMobile from '../../assets/mobile-background.svg'
-import BackgroundDesktop from '../../assets/desktop-background.svg'
 import { LotteryName } from '../../constants/lottery-names'
 import { spinnerStyles } from '../../components/Spinner'
 
-export const PageTemplateContainer = styled('div', {
+export const LotteryContainer = styled('div', {
   minHeight: '100dvh',
 
   display: 'grid',
-  gridAutoRows: 'auto 1fr min-content',
+  gridAutoRows: 'max-content 1fr min-content',
   gap: '5rem',
 
   textAlign: 'center',
 
-  $$paddingInline: '2rem',
+  $$paddingInline: 'clamp(2.5rem, -0.357rem + 14.29vw, 12.5rem)',
 
   '@lg': {
-    gridAutoColumns: 'auto 1fr',
-    gridAutoRows: '1fr auto',
+    gridAutoColumns: 'max-content 1fr',
+    gridAutoRows: '1fr min-content',
     gridTemplateAreas: `
       'head main'
       'head foot'
     `,
-    gap: 'unset',
+    gap: '2.5rem 0 ',
 
     textAlign: 'unset',
 
     $$paddingBlock: '5.75rem',
-    $$paddingInline: '6rem',
   },
 
   variants: {
@@ -52,24 +49,13 @@ export const Header = styled('header', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  justifyContent: 'space-between',
   gap: '5rem',
-
-  WebkitMaskImage: `url(${BackgroundMobile})`,
-  maskImage: `url(${BackgroundMobile})`,
-  WebkitMaskPosition: 'top center',
-  maskPosition: 'top center',
-  WebkitMaskRepeat: 'no-repeat',
-  maskRepeat: 'no-repeat',
-  WebkitMaskSize: 'cover',
-  maskSize: 'cover',
 
   color: '$white',
   textTransform: 'uppercase',
 
-  paddingBlock: '4rem 8.25rem',
-  paddingInline: '$$paddingInline',
-
-  '.lgroup': {
+  '.lottery--name': {
     display: 'flex',
     flexDirection: 'column',
     gap: '1.25rem',
@@ -84,7 +70,7 @@ export const Header = styled('header', {
     },
   },
 
-  '.fgroup': {
+  '.lottery--info': {
     p: {
       fontSize: '$xs',
       fontWeight: '$medium',
@@ -95,24 +81,59 @@ export const Header = styled('header', {
     strong: { fontSize: '$lg' },
   },
 
+  paddingBlock: '7vmax',
+  paddingInline: '$$paddingInline',
+
+  position: 'relative',
+  overflow: 'hidden',
+
+  // Reversed semi-circular border
+  '&::before': {
+    content: '',
+    backgroundColor: '$gray100',
+    borderRadius: '50%',
+
+    $$height: 'clamp(4.5rem, 2.833rem + 8.33vw, 8rem)',
+    height: '$$height',
+    width: '120vw',
+
+    position: 'absolute',
+    insetInline: '50%',
+    insetBlockEnd: 'calc(-0.75 * $$height)',
+    transform: 'translateX(-50%)',
+
+    '@lg': {
+      height: '110vh',
+      width: '25vw',
+
+      insetBlock: '50%',
+      insetInline: 'auto -12.5vw',
+      transform: 'translate(0, -50%)',
+    },
+  },
+
   '@lg': {
     gridArea: 'head',
 
     alignItems: 'start',
     justifyContent: 'space-between',
 
-    WebkitMaskImage: `url(${BackgroundMobile})`,
-    maskImage: `url(${BackgroundDesktop})`,
-    WebkitMaskPosition: 'center',
-    maskPosition: 'center',
-
     height: '100dvh',
+    minWidth: '38.3125vw',
     paddingBlock: '$$paddingBlock',
-    width: '38.3125rem',
+    paddingInline: `clamp(3rem, -1.895rem + 7.89vw, 6rem) clamp(3.5rem, -1.395rem + 7.89vw, 6.5rem)`,
+
+    '.lottery--name': {
+      marginBlockEnd: 'clamp(0rem, -6rem + 13.33vh, 3rem)',
+      width: 'max(31.0625vw, 25rem)',
+    },
+
+    position: 'sticky',
+    insetBlockStart: 0,
   },
 
   variants: {
-    raffle: {
+    color: {
       [LotteryName.MegaSena]: { backgroundColor: '$aquamarine' },
       [LotteryName.Quina]: { backgroundColor: '$purple' },
       [LotteryName.Lotofacil]: { backgroundColor: '$pink' },
@@ -123,14 +144,13 @@ export const Header = styled('header', {
   },
 
   defaultVariants: {
-    raffle: LotteryName.MegaSena,
+    color: LotteryName.MegaSena,
   },
 })
 
 export const Main = styled('main', {
   alignSelf: 'center',
 
-  marginBlockStart: '-5rem',
   paddingInline: '$$paddingInline',
 
   ol: {
@@ -143,10 +163,14 @@ export const Main = styled('main', {
   '@lg': {
     gridArea: 'main',
 
-    marginBlockStart: '6.75rem',
-    paddingInlineStart: 'unset',
+    marginInlineStart: '-4rem',
+
+    paddingBlockStart: '$$paddingBlock',
+    paddingInline: '0 clamp(2.5rem, -4.842rem + 11.84vw, 7rem)',
 
     ol: { columnGap: '2.25rem' },
+
+    zIndex: 90,
   },
 })
 
@@ -171,10 +195,7 @@ export const Footer = styled('footer', {
   fontSize: '$xs',
   lineHeight: '$foot',
 
-  maxWidth: '42ch',
-
-  marginBlockEnd: '2.5rem',
-  marginInline: 'auto',
+  marginBlockEnd: '2rem',
   paddingInline: '$$paddingInline',
 
   '@lg': {
@@ -184,7 +205,7 @@ export const Footer = styled('footer', {
 
     maxWidth: 'unset',
 
-    marginBlockEnd: '$$paddingBlock',
-    paddingInlineStart: 'unset',
+    marginBlockEnd: 'clamp(2rem, -5.5rem + 16.67vmin, 5.75rem)',
+    paddingInline: '0 clamp(1.5rem, -2.579rem + 6.58vw, 4rem)',
   },
 })
