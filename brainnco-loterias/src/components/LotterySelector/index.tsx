@@ -12,7 +12,12 @@ import { CaretDown, CaretLeft } from '@phosphor-icons/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { LotteryName } from '../../constants/lottery-names'
 
-export function RaffleSelector() {
+/* 
+  ! Do not use this component
+  * Use the new LotteryNavigator instead
+*/
+
+export function LotterySelector() {
   const location = useLocation()
   const currentRaffle = location.pathname.replace('/', '')
 

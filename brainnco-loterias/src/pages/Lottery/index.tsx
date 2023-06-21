@@ -1,7 +1,7 @@
 import { useLoaderData, useNavigation } from 'react-router-dom'
-import { RaffleSelector } from '../../components/RaffleSelector'
 import { Ball, Footer, Header, Main, LotteryContainer } from './styles'
 import { LotteryData } from '../../types'
+import { LotteryNavigator } from '../../components/LotteryNavigator'
 
 export function Lottery() {
   const data = useLoaderData() as LotteryData
@@ -13,10 +13,10 @@ export function Lottery() {
   return (
     <LotteryContainer withSpinner={isLoading}>
       <Header color={lottery}>
-        <RaffleSelector />
+        <LotteryNavigator />
         <div className="lottery--name">
           <img src="/logo.svg" alt="" />
-          <h1>{lottery}</h1>
+          <h1>{lottery.replace(/-/g, ' ')}</h1>
         </div>
         <div className="lottery--info">
           <p>Concurso</p>

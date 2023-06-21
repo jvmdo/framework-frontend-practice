@@ -8,7 +8,7 @@ export const globalStyles = globalCss({
   },
 
   'ol, ul': {
-    listStyleType: 'none',
+    listStyleType: 'none !important',
   },
 
   'img, svg': {

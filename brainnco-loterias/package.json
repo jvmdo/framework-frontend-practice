@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.0.10",
+    "@radix-ui/react-navigation-menu": "^1.1.3",
     "@radix-ui/react-select": "^1.2.2",
     "@stitches/react": "^1.2.8",
     "alova": "^2.6.2",
