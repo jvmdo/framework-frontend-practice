@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-export enum Raffle {
+export enum LotteryName {
   MegaSena = 'mega-sena',
   Quina = 'quina',
   Lotofacil = 'lotofacil',

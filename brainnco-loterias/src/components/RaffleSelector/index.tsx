@@ -10,7 +10,7 @@ import {
 } from './styles'
 import { CaretDown, CaretLeft } from '@phosphor-icons/react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Raffle } from '../../constants/raffles'
+import { LotteryName } from '../../constants/lottery-names'
 
 export function RaffleSelector() {
   const location = useLocation()
@@ -35,7 +35,7 @@ export function RaffleSelector() {
       <Select.Portal>
         <SelectContent position="popper" sideOffset={2} align="center">
           <SelectViewport>
-            {Object.values(Raffle).map((raffle) => (
+            {Object.values(LotteryName).map((raffle) => (
               <SelectItem key={raffle} value={raffle}>
                 <Select.ItemText>{raffle}</Select.ItemText>
                 <SelectItemIndicator>

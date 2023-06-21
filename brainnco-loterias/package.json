@@ -13,6 +13,7 @@
     "@phosphor-icons/react": "^2.0.10",
     "@radix-ui/react-select": "^1.2.2",
     "@stitches/react": "^1.2.8",
+    "alova": "^2.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.13.0"

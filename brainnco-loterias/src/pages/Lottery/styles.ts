@@ -1,7 +1,7 @@
 import { styled } from '../../styles/stitches.config'
 import BackgroundMobile from '../../assets/mobile-background.svg'
 import BackgroundDesktop from '../../assets/desktop-background.svg'
-import { Raffle } from '../../constants/raffles'
+import { LotteryName } from '../../constants/lottery-names'
 import { spinnerStyles } from '../../components/Spinner'
 
 export const PageTemplateContainer = styled('div', {
@@ -113,17 +113,17 @@ export const Header = styled('header', {
 
   variants: {
     raffle: {
-      [Raffle.MegaSena]: { backgroundColor: '$aquamarine' },
-      [Raffle.Quina]: { backgroundColor: '$purple' },
-      [Raffle.Lotofacil]: { backgroundColor: '$pink' },
-      [Raffle.Lotomania]: { backgroundColor: '$orange' },
-      [Raffle.Timemania]: { backgroundColor: '$green' },
-      [Raffle.DiaDeSorte]: { backgroundColor: '$khaki' },
+      [LotteryName.MegaSena]: { backgroundColor: '$aquamarine' },
+      [LotteryName.Quina]: { backgroundColor: '$purple' },
+      [LotteryName.Lotofacil]: { backgroundColor: '$pink' },
+      [LotteryName.Lotomania]: { backgroundColor: '$orange' },
+      [LotteryName.Timemania]: { backgroundColor: '$green' },
+      [LotteryName.DiaDeSorte]: { backgroundColor: '$khaki' },
     },
   },
 
   defaultVariants: {
-    raffle: Raffle.MegaSena,
+    raffle: LotteryName.MegaSena,
   },
 })
 

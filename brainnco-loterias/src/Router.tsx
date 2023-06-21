@@ -1,36 +1,27 @@
-import { createBrowserRouter, redirect, useLoaderData } from 'react-router-dom'
+import { createBrowserRouter, redirect } from 'react-router-dom'
 import { Home } from './pages/Home'
-import { RafflePage, RafflePageProps } from './pages/RafflePage'
-import { Raffle } from './constants/raffles'
+import { Error } from './pages/Error'
+import { Lottery } from './pages/Lottery'
+import { LotteryName } from './constants/lottery-names'
+import { lotteryLoader } from './services/loaders'
+import { NotFound } from './pages/NotFound'
 
-const raffleRoutes = Object.values(Raffle).map((raffle) => ({
-  path: raffle,
-  Component: () => {
-    const data = useLoaderData() as RafflePageProps
-    return <RafflePage {...data} />
-  },
-  loader: async () => {
-    await new Promise((resolve) =>
-      setTimeout(resolve, Math.max(Math.random() * 600, 300)),
-    )
-    const data: RafflePageProps = {
-      raffle,
-      winningNumbers: Array.from(
-        { length: 6 },
-        () => Math.round(Math.random() * 59) + 1,
-      ),
-      raffleNumber: Math.round(Math.random() * 9998) + 1,
-      date: new Date().toUTCString(),
-    }
-    return data
-  },
+const lotteryRoutes = Object.values(LotteryName).map((lottery) => ({
+  path: lottery,
+  element: <Lottery />,
+  errorElement: <Error />,
+  loader: () => lotteryLoader(lottery),
 }))
 
 export const router = createBrowserRouter([
   {
+    path: '*',
+    element: <NotFound />,
+  },
+  {
     path: '/',
     element: <Home />,
-    loader: () => redirect(`/${Raffle.MegaSena}`),
+    loader: () => redirect(`/${LotteryName.MegaSena}`),
   },
-  ...raffleRoutes,
+  ...lotteryRoutes,
 ])
