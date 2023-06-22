@@ -30,11 +30,11 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        working-directory: ./brainnco-loterias # !
+        working-directory: framework-frontend-practice/brainnco-loterias
         run: npm ci
 
       - name: Build project3
-        working-directory: ./brainnco-loterias # !
+        working-directory: framework-frontend-practice/brainnco-loterias
         run: npm run build
 
       - name: Deploy project3 to GitHub Pages
@@ -42,4 +42,4 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./brainnco-loterias/dist # ! build folder
+          publish_dir: framework-frontend-practice/brainnco-loterias/dist
