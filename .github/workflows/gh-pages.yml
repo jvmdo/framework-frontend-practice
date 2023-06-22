@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-22.04
     defaults:
       run:
-        working-directory: framework-frontend-practice/brainnco-loterias
+        working-directory: brainnco-loterias
     permissions:
       contents: write
     concurrency:
