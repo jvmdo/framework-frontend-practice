@@ -9,6 +9,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: framework-frontend-practice/brainnco-loterias
     permissions:
       contents: write
     concurrency:
@@ -29,17 +32,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install dependencies
-        working-directory: brainnco-loterias
-        run: npm ci
-
-      - name: Build project3
-        working-directory: brainnco-loterias
-        run: npm run build
+      - run: npm ci
+      - run: npm run build
 
       - name: Deploy project3 to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: brainnco-loterias/dist
+          publish_dir: ./dist
